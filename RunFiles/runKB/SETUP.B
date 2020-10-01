@@ -1,0 +1,12 @@
+&SETUP 
+efile='EMITIMES.txt',
+kmsl=0,
+ninit=0,
+ndump=0,
+ncycl=1,
+numpar=50000,
+maxpar=500000,
+ichem=5,
+poutf='PARDUMP.B',
+delt=10,
+/ 
