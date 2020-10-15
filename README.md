@@ -20,7 +20,7 @@ https://github.com/noaa-oar-arl/utilhysplit
 #### txtfiles directory
     Contains text files with model results for the tracer experiments.
 
-#### Figures directory
+#### FigureScripts directory
     Contains bash scripts for creating multi panel figures.
 
 ### Jupyter Notebooks
