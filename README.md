@@ -25,7 +25,7 @@ https://github.com/noaa-oar-arl/utilhysplit
 
 ### Jupyter Notebooks
 
-#### captex1_notebooks.ipynb
+#### captex1_notebook.ipynb
     This notebook creates the panels for Figures 1 and 2. It also creates figures which are not shown in the paper.
 #### Figure3.ipynb  
     This notebook creates Figure 3.
