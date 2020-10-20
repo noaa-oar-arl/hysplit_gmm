@@ -1,5 +1,5 @@
  
-           captex7.txt      results file: statA.txt 
+           ../Data/captex7. results file: statA.txt 
  Model variation:    Tracer number: 0   Station select: All
            ----------------------------------- 
  
@@ -9,26 +9,26 @@
  
       0.20 Correlation coefficient (P=99%)
       0.24 Regression Slope
-      3.50 T-value (|Slope|/Standard Error)
+      3.48 T-value (|Slope|/Standard Error)
     278.42 Average measured concentration
-    276.69 Average calculated concentration
-      0.99 Ratio of calculated/measured
-     34.84 Normalized mean square error
-   1638.20 Root mean square error
+    278.27 Average calculated concentration
+      1.00 Ratio of calculated/measured
+     35.02 Normalized mean square error
+   1647.23 Root mean square error
        288 Number of pairs analyzed
  
-     -1.73 Average bias [(C-M)/N]
-   -251.21 Lo 99 % confidence interval
-    247.76 Hi 99 % confidence interval
-     -0.01 Fractional bias [2B/(C+M)]
+     -0.15 Average bias [(C-M)/N]
+   -251.01 Lo 99 % confidence interval
+    250.71 Hi 99 % confidence interval
+     -0.00 Fractional bias [2B/(C+M)]
  
      47.17 False Alarm Rate [fa/(fa+hit)] 
      59.57 Probability of Detection [hit/(hit+miss)] 
      38.89 Threat Score [hit/(fa+hit+miss)] 
  
-     35.23 Fig of merit in space (%)
+     35.63 Fig of merit in space (%)
  
-    -31.25 Factor exceeding [N(C>M)/N-0.5]
+    -31.94 Factor exceeding [N(C>M)/N-0.5]
       3.13 Percent C/M ± 2
       5.56 Percent C/M ± 5
       7.29 Percent C/M ±10
@@ -41,11 +41,11 @@
       0.00 Measured   75-th percentile
       0.00 Measured   50-th percentile
  
-   1082.28 Calculated 95-th percentile
-    164.02 Calculated 90-th percentile
+   1066.68 Calculated 95-th percentile
+    163.99 Calculated 90-th percentile
       0.00 Calculated 75-th percentile
       0.00 Calculated 50-th percentile
  
       5.00 Kolmogorov-Smirnov Parameter
  
-      2.34 Final rank (C,FB,FMS,KSP)
+      2.35 Final rank (C,FB,FMS,KSP)

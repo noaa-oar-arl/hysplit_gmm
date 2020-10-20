@@ -1,5 +1,5 @@
  
-           captex1.t results file: statA.txt 
+           ../Data/c results file: statA.txt 
  Model variation:    Tracer number: 0   Station select: All
            ----------------------------------- 
  
@@ -7,33 +7,33 @@
       0.00 Percentile input for zero measured
       0.00 Zero measured concentration value
  
-      0.71 Correlation coefficient (P=99%)
-      0.88 Regression Slope
-     20.24 T-value (|Slope|/Standard Error)
+      0.57 Correlation coefficient (P=99%)
+      1.15 Regression Slope
+     13.85 T-value (|Slope|/Standard Error)
     137.79 Average measured concentration
-    284.06 Average calculated concentration
-      2.06 Ratio of calculated/measured
-     33.25 Normalized mean square error
-   1140.87 Root mean square error
+    461.74 Average calculated concentration
+      3.35 Ratio of calculated/measured
+     75.19 Normalized mean square error
+   2187.23 Root mean square error
        394 Number of pairs analyzed
  
-    146.27 Average bias [(C-M)/N]
-     -0.98 Lo 99 % confidence interval
-    293.52 Hi 99 % confidence interval
-      0.69 Fractional bias [2B/(C+M)]
+    323.96 Average bias [(C-M)/N]
+     42.44 Lo 99 % confidence interval
+    605.47 Hi 99 % confidence interval
+      1.08 Fractional bias [2B/(C+M)]
  
-     45.45 False Alarm Rate [fa/(fa+hit)] 
-     65.22 Probability of Detection [hit/(hit+miss)] 
-     42.25 Threat Score [hit/(fa+hit+miss)] 
+     34.38 False Alarm Rate [fa/(fa+hit)] 
+     22.83 Probability of Detection [hit/(hit+miss)] 
+     20.39 Threat Score [hit/(fa+hit+miss)] 
  
-     42.25 Fig of merit in space (%)
+     20.39 Fig of merit in space (%)
  
-    -27.16 Factor exceeding [N(C>M)/N-0.5]
-      4.57 Percent C/M ± 2
-      9.90 Percent C/M ± 5
-     12.69 Percent C/M ±10
-     15.23 Percent M>0 and C>0
-      8.12 Percent M>0 and C=0
+    -42.39 Factor exceeding [N(C>M)/N-0.5]
+      0.76 Percent C/M ± 2
+      1.27 Percent C/M ± 5
+      2.79 Percent C/M ±10
+      5.33 Percent M>0 and C>0
+     18.02 Percent M>0 and C=0
      76.65 Percent M=0 and C>0
  
     327.60 Measured   95-th percentile
@@ -41,11 +41,11 @@
       0.00 Measured   75-th percentile
       0.00 Measured   50-th percentile
  
-    709.80 Calculated 95-th percentile
-    227.11 Calculated 90-th percentile
-     20.20 Calculated 75-th percentile
+   2024.37 Calculated 95-th percentile
+      0.00 Calculated 90-th percentile
+      0.00 Calculated 75-th percentile
       0.00 Calculated 50-th percentile
  
-      6.00 Kolmogorov-Smirnov Parameter
+     16.00 Kolmogorov-Smirnov Parameter
  
-      2.53 Final rank (C,FB,FMS,KSP)
+      1.83 Final rank (C,FB,FMS,KSP)

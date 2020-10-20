@@ -1,0 +1,51 @@
+ 
+           captex5.txt      results file: statA.txt 
+ Model variation:    Tracer number: 0   Station select: All
+           ----------------------------------- 
+ 
+       325 Unaveraged data points for processing
+      0.00 Percentile input for zero measured
+      0.00 Zero measured concentration value
+ 
+      0.71 Correlation coefficient (P=99%)
+      1.09 Regression Slope
+     18.10 T-value (|Slope|/Standard Error)
+    147.19 Average measured concentration
+    239.62 Average calculated concentration
+      1.63 Ratio of calculated/measured
+     24.04 Normalized mean square error
+    920.73 Root mean square error
+       324 Number of pairs analyzed
+ 
+     92.43 Average bias [(C-M)/N]
+    -39.07 Lo 99 % confidence interval
+    223.94 Hi 99 % confidence interval
+      0.48 Fractional bias [2B/(C+M)]
+ 
+     27.03 False Alarm Rate [fa/(fa+hit)] 
+     36.00 Probability of Detection [hit/(hit+miss)] 
+     31.76 Threat Score [hit/(fa+hit+miss)] 
+ 
+     28.87 Fig of merit in space (%)
+ 
+    -37.65 Factor exceeding [N(C>M)/N-0.5]
+      3.40 Percent C/M ± 2
+      6.48 Percent C/M ± 5
+      6.79 Percent C/M ±10
+      8.64 Percent M>0 and C>0
+     14.51 Percent M>0 and C=0
+     76.85 Percent M=0 and C>0
+ 
+    109.20 Measured   95-th percentile
+     31.20 Measured   90-th percentile
+      0.00 Measured   75-th percentile
+      0.00 Measured   50-th percentile
+ 
+    988.22 Calculated 95-th percentile
+     12.35 Calculated 90-th percentile
+      0.00 Calculated 75-th percentile
+      0.00 Calculated 50-th percentile
+ 
+     13.00 Kolmogorov-Smirnov Parameter
+ 
+      2.42 Final rank (C,FB,FMS,KSP)

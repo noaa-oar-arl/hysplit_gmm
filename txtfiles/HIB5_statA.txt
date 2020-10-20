@@ -1,9 +1,9 @@
  
-           captex5.t results file: statA.txt 
+           ../Data/c results file: statA.txt 
  Model variation:    Tracer number: 0   Station select: All
            ----------------------------------- 
  
-       357 Unaveraged data points for processing
+       318 Unaveraged data points for processing
       0.00 Percentile input for zero measured
       0.00 Zero measured concentration value
  
@@ -23,8 +23,8 @@
       0.85 Fractional bias [2B/(C+M)]
  
      17.86 False Alarm Rate [fa/(fa+hit)] 
-     29.11 Probability of Detection [hit/(hit+miss)] 
-     27.38 Threat Score [hit/(fa+hit+miss)] 
+     31.08 Probability of Detection [hit/(hit+miss)] 
+     29.11 Threat Score [hit/(fa+hit+miss)] 
  
      29.11 Fig of merit in space (%)
  

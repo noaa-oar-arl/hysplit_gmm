@@ -1,5 +1,5 @@
  
-           captex7.txt       results file: statA.txt 
+           ../Data/captex7.t results file: statA.txt 
  Model variation:    Tracer number: 0   Station select: All
            ----------------------------------- 
  
