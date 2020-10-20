@@ -11,9 +11,7 @@ from scipy.stats import poisson
 from utilhysplit import concutils
 from monetio.models import hysplit
 from monetio.models import pardump
-import utilhysplit.parutils as vp
 import utilhysplit.par2conc as par2conc
-##list of cdump files
 
 def getumass(letter):
     """
@@ -31,6 +29,7 @@ def getumass(letter):
     # mer is in kg/s
     # return grams per hour
     unitmass = mer * 3600.0 * 1000
+    return unitmass
 
 def flatten_pdump(pdump,date,lev,poll,makeplot=False):
     """
@@ -62,7 +61,7 @@ def process_pdump(pdump, date,lev,poll, makeplot=False):
 class KasatochiExample:
 
     def __init__(self):
-        self.tdir = '../RunFiles/RunKX/'
+        self.tdir = './RunFiles/runKX/'
         #self.dur = 60
         #self.tmave=60 #1 hours
         self.stime = datetime.datetime(2008,8,10,12)
@@ -105,10 +104,21 @@ class KasatochiExample:
         self.etime = etime
 
     def setmult(self,mult="A"):
+        """
+        Runs release unit mass every hour.
+        This factor is used to convert unit mass / m3 to
+        g/m3.
+        """
         self.mult = getumass(mult)
         self.multstr = mult
+        print('mult set ', self.mult)
 
     def get_cdump(self,tag,verbose=False):
+        """
+        reads data in cdump files into an xarray.
+        stores in chash dictionary and returns xarray.
+        """
+
         # B is 5,000 particles. SEED=-4
         # 24 hour run.
         # 0.05x0.1 concentration grid.
@@ -122,6 +132,10 @@ class KasatochiExample:
         return  self.chash[tag]
 
     def get_pdump(self, tag,verbose=False):
+        """
+        reads data in a PARDUMP file into a DataFrame and stores in phash
+        dictionary. Returns the DataFrame.
+        """
         d1 = self.stime
         d2 = self.etime
         base = 'PARDUMP.'
@@ -134,6 +148,9 @@ class KasatochiExample:
     def fit_pdump(self,tag,nnn,method,minht=0,poll=4,wcp=1e3, massload=False):
         """
         wcp : float. weight concentration prior used for BGM.
+        returns 
+        mfit: a MassFit object from the par2fit function in par2conc.py
+        temp: pandas DataFrame that was passed to par2fit 
         """
         temp = self.phash[tag]
         if massload:
@@ -145,6 +162,9 @@ class KasatochiExample:
 
   
     def plot_fit(self,concra):
+        """
+        creates plots
+        """
         if self.multstr == 'C':
            vmin=0
            vmax=28
@@ -178,6 +198,10 @@ class KasatochiExample:
     def slice_cdump(self, tag, lon, 
                    makeplot='mesh',
                    mult=0.001):
+        """
+        Takes a vertical slice of the cdump file.
+        """
+
         # mult = 0.001 to convert to km
         from utilhysplit import concutils
         cdump = self.chash[tag]
@@ -255,196 +279,12 @@ class KasatochiExample:
         plt.ylim(39,55)
         plt.title('')
         return cdump
-#--------------------------------------------------------------
-    def make_example1(self):
-        #d1 = datetime.datetime(1983,9,19,0)
-        #d1 = datetime.datetime(1983,9,18,21)
-        d1 = self.stime
-        d2 = d1 + datetime.timedelta(minutes=self.tmave)
-        fnum = 1
-        cap1 = captex.Captex(self.captex_number)
-        capx, capy,capz = cap1.get_points(d1,dur=self.dur)
-        for num in [0,1,2,3,4]:
-        #for num in [2]:
-            fig = plt.figure(fnum)
-            cdump = self.get_cdump(num, drange=[d1,d2])
-            self.plot_example1(cdump,capdata=(capx,capy,capz),thresh=1)
-            plt.savefig('example1_' + str(num) + '.png')
-            fnum += 1
 
-    def get_ex_cdump(self, num):
-        d1 = self.stime
-        d2 = d1 + datetime.timedelta(minutes=self.tmave)
-        cdump = self.get_cdump(num, drange=[d1,d2])
-        return cdump 
-
-    def comparesub(self,cdump):
-        ra = cdump.copy()
-        if 'z' in ra.dims:
-            ra = ra.isel(z=0)
-        if 'time' in cdump.dims:
-            #ra = ra.isel(time=0)
-            ra = ra.mean(dim='time')
-        return ra
-
-    def comparetwo(cdump1, cdump2):
-        ra1 = comparesub(cdump1)
-        ra2 = comparesub(cdump2)
-        diff = ra1 - ra2
-        return diff
-
-    def plot_example1(self,cdump,capdata=(None,None,None),
-                      thresh=None,log=False):
-        levels = self.levels
-        ticklocs = self.ticklocs
-        chash = {'ticks':ticklocs,
-                 'label': 'pg m$^{-3}$'}
-        sns.set()
-        sns.set_style("ticks")
-        ra = cdump.copy()
-        if 'z' in ra.dims:
-            ra = ra.isel(z=0)
-        if 'time' in cdump.dims:
-            #ra = ra.isel(time=0)
-            ra = ra.mean(dim='time')
-        cmap=plt.get_cmap('viridis')
-        #cmap=plt.get_cmap('Purples')
-        if thresh:
-           ra = par2conc.threshold(ra, thresh, 'linear',fillna=False)
-        if log:
-           import matplotlib.colors as colors
-           chash={}
-           #chash['norm']=colors.LogNorm(vmin=0.001, vmax=30000)
-           norm=colors.LogNorm(vmin=0.001, vmax=30000)
-          
-           ra.plot.pcolormesh(x='longitude', y='latitude', levels=levels,
-                           norm=norm,cmap=cmap,add_colorbar=True, cbar_kwargs = chash)
-        else:
-            ra.plot.pcolormesh(x='longitude', y='latitude', levels=levels,
-                           cmap=cmap,add_colorbar=True, cbar_kwargs = chash)
-      
-        ax = plt.gca()
-        plt.xlim(self.xlim[0],self.xlim[1])
-        plt.ylim(self.ylim[0],self.ylim[1])
-        ax.set_xticks(self.xticks, minor=False)
-        ax.set_yticks(self.yticks, minor=False)
-        maxval = np.max(ra)
-        minval =  np.min(ra)
-        fig = plt.gcf()
-        plt.title('') 
-
-        norm = BoundaryNorm(levels,ncolors=cmap.N,clip=False)
-       
-        if np.any(capdata): 
-            temp = list(zip(capdata[0],capdata[1],capdata[2]))
-            c1 = [x for x in temp if x[2]>0]
-            c2 = [x for x in temp if x[2]<=0]
-            capdata = list(zip(*c1))  
-            c2 = list(zip(*c2))  
-
-            cb = plt.scatter(capdata[0],capdata[1],c=capdata[2],s=70,
-                             cmap=cmap, norm=norm, edgecolors='#f2f0f0') 
-            # plot measurements stations with 0.
-            plt.scatter(c2[0],c2[1],s=70,edgecolors="#323633",facecolors='#fafcfb')
-        return minval, maxval
 
 #--------------------------------------------------------------
 
-#--------------------------------------------------------------
-    def test_pdump(self):
-        num=1
-        d1 = self.stime
-        d2 = d1 + datetime.timedelta(minutes=self.tmave)
-        df = self.get_pdump(num, [d1,d2])
-        pc = par2conc.Par2Conc(df)
-        # look at particles up to 500m from time d1 to 3 hours later.
-        df2 = pc.subsetdf(d1, self.tmave, htmax=500)
-        # creates fit for each time in the dataframe.
-        mlist = par2conc.fit_timeloop(df2,nnn=50,maxht=500,method='gmm')
-        return mlist
-
-    def get_mlist(self, nnn, method, dd, dh):
-        num=1
-        d1 = self.stime
-        d2 = d1 + datetime.timedelta(minutes=self.tmave)
-        df = self.get_pdump(num, [d1,d2])
-        pc = par2conc.Par2Conc(df)
-        # look at particles up to 500m from time d1 to 3 hours later.
-        df2 = pc.subsetdf(d1, self.tmave, htmax=500)
-        # creates fit for each time in the dataframe.
-        mlist = par2conc.fit_timeloop(df2,nnn=nnn,maxht=500,method=method)
-        return mlist
-
-    def get_pdump_example1(self, nnn, method, dd, dh,
-                          num=1,warm_start=True,verbose=False):
-        """
-        warm_start : boolean
-            indicates whether to use fit from previous time as a starting point. 
-        """
-        d1 = self.stime
-        d2 = d1 + datetime.timedelta(minutes=self.tmave)
-        df = self.get_pdump(num, [d1,d2])
-        pc = par2conc.Par2Conc(df)
-        # look at particles up to 500m from time d1 to 3 hours later.
-        df2 = pc.subsetdf(d1, 3*60, htmax=500)
-        # creates fit for each time in the dataframe.
-        mlist = par2conc.fit_timeloop(df2,nnn=nnn,maxht=500,method=method,
-                                      warm_start=False)
-        concra1 = par2conc.average_mfitlist(mlist,dd=dd,dh=dh,buf=0.01)
-        # fit all the particles at all the times at once.
-        mfit = par2conc.par2fit(df2, method=method,
-                                nnn=nnn)
-        # need to divide mass by number of time periods included in the average.
-        mult = 1 / len(set(df2.date.values))
-        concra = mult * mfit.get_conc(dd=dd, dh=dh)
- 
-        # convert to pico-grams and
-        # shift mass underground to first level
-        concra1 = 1e12 * par2conc.shift_underground(concra1)
-        concra = 1e12 * par2conc.shift_underground(concra)
-
-        # first is from averaging fits to each time period
-        # second is from fitting to all.
-        if verbose: print('done')  
-        self.afithash[(nnn,method)] = mlist
-        self.bfithash[(nnn,method)] = mfit
-
-        return concra1, concra
-
-    def plot_pdump_example1(self,c1, thresh=1,name='pdump_example1',log=False):
-        d1 = self.stime
-        cap1 = captex.Captex(self.captex_number)
-        capx, capy,capz = cap1.get_points(d1,dur=self.dur)
-        # use first two levels.
-        conc = c1.isel(z=[0,1]).mean(dim='z')
-        self.plot_example1(conc,capdata=(capx,capy,capz),thresh=thresh,log=log)
-        plt.savefig(name + '_' + str(self.captex_number) + '.png')
-        plt.show()
-        return conc
-    
-
-        #return df, df2, mfit, pc
-
-    #def get_pdump_example2(self):
-    #    num=1
-    #    d1 = datetime.datetime(1983,9,20,6)
-    #    d2 = datetime.datetime(1983,9,20,12)
-    #    df = self.get_pdump(num, [d1,d2])
-    #    pc = par2conc.Par2Conc(df)
-    #    df2 = pc.subsetdf(d1, 6*60, htmax=500)
-    #    return df, df2
-#--------------------------------------------------------------
 
 
-    def redo_conc(self,dd,dh,buf,shift=None):
-        mra = self.mfit.get_conc(dd=dd,dh=dh, buf=buf,
-                                 mass=self.mass)
-        if shift=='reflect':
-           mra = vp.reflect_underground(mra)
-        elif shift=='shift':
-           mra = vp.shift_underground(mra)
-        
-        return mra 
      
 
 
