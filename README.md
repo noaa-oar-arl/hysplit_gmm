@@ -1,9 +1,16 @@
 # hysplit_gmm
-This repository is supplemental material for the publication
+This repository is supplemental material for the publication "The use of Gaussian Mixture Models with Atmospheric Lagrangian Particle Dispersion models for density estimation and feature identification" by Alice Crawford which has been submitted to Atmosphere. 
 
 ### Dependencies
 https://github.com/noaa-oar-arl/monetio  
 https://github.com/noaa-oar-arl/utilhysplit  
+
+- pandas
+- xarray
+- numpy
+- matplotlib
+- seaborn
+
 
 ## Contents
 ### Directories
@@ -32,3 +39,5 @@ https://github.com/noaa-oar-arl/utilhysplit
 #### Figure4and5and6.ipynb
 #### Figure7and8.ipynb
 #### Figure9.ipynb
+#### AppendixA.ipynb
+#### AppendixB.ipynb
