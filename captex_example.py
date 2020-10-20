@@ -82,7 +82,9 @@ def align_cdump(cdump1, cdump2, dd, tag1, tag2):
 
 
 def compare_cdump(ara):
-
+    """
+    compares cdump files
+    """
     # absolute difference
     diff = ara.isel(run=0) - ara.isel(run=1)
     # percent change
@@ -117,7 +119,7 @@ def processcdump(cdump, key, mult):
 
 
 # --------------------------------------------------------------
-# captex 2 examples
+# captex 2 examples. Not shown in paper
 # --------------------------------------------------------------
 def CaptexExample2a():
     """
@@ -155,6 +157,7 @@ def CaptexExample2():
     return c2
 
 
+# Captex 1 examples.
 class CaptexExample:
     def __init__(self):
         self.tdir = "./RunFiles/"
@@ -198,7 +201,7 @@ class CaptexExample:
         # high resolution 250,000 particles
         # 0.05x0.05
         # 25m vertical resolution
-        fdir = os.path.join(self.tdir, "runA")
+        fdir = os.path.join(self.tdir, "RunA")
         flist.append(os.path.join(fdir, fname))
         # high resolution 50,000 particles
         fdir = os.path.join(self.tdir, "RunB")
@@ -370,6 +373,7 @@ class CaptexExample:
     # --------------------------------------------------------------
     def get_cdump(self, num, drange=None):
         fl = self.flist[num]
+        print('Opening ', fl)
         cdump = hysplit.open_dataset(fl, drange=drange, century=1900)
         cdump = self.process_cdump(cdump)
         self.chash[num] = cdump
@@ -432,6 +436,10 @@ class CaptexExample:
         """
         warm_start : boolean
             indicates whether to use fit from previous time as a starting point. 
+
+        Returns
+        concra1: fit each time period separately
+        concra : fit all time periods together.
         """
         d1 = self.stime
         d2 = d1 + datetime.timedelta(minutes=self.tmave)
@@ -477,59 +485,19 @@ class CaptexExample:
 
         # return df, df2, mfit, pc
 
-    # def get_pdump_example2(self):
-    #    num=1
-    #    d1 = datetime.datetime(1983,9,20,6)
-    #    d2 = datetime.datetime(1983,9,20,12)
-    #    df = self.get_pdump(num, [d1,d2])
-    #    pc = par2conc.Par2Conc(df)
-    #    df2 = pc.subsetdf(d1, 6*60, htmax=500)
-    #    return df, df2
-    # --------------------------------------------------------------
 
-    def get_pdump(self, num, drange=None, century=1900):
+    def get_pdump(self, num, drange=None, century=1900,verbose=False):
+        """
+        num values return
+        1 = RunC
+        2 = RunB
+        3 = RunD
+        4 = RunA
+        """
         fl = self.plist[num - 1]
-        df = pardump.open_dataset(fl, drange, century=century)
+        print('opening ' + fl)
+        df = pardump.open_dataset(fl, drange, century=century,verbose=verbose)
         # capar = vp.VolcPar(self.fdir, fl)
         # capar.read_pardump(century=century)
         return df
 
-    # def process_pdump1(self, htmax=None,nnn=None):
-    #    """
-    #    Obtains averages by fitting to all particles.
-    #    """
-    #    jjj, pdictall = vp.combine_pdict(self.pdict, self.stime, self.tmave)
-    #    if htmax:
-    #       pdictall = pdictall[pdictall['ht']<=htmax]
-    #    mass = pdictall['pmass'].sum() / float(jjj)
-    #    self.pdictall = pdictall
-    #    self.mass = mass
-    #    self.nnn = nnn
-    #    self.htmax = htmax
-    #    self.mfit = vp.par2fit(pdictall, nnn=nnn)
-    #    mra = self.mfit.get_conc(dd=0.01,dh=0.005, buf=0.1, mass=mass)
-    #    # move mass to first level.
-    #    mra = vp.shift_underground(mra)
-    #    self.mra =  km2m(mra)
-
-
-    #def process_pdump2(self, htmax=None, nnn=None):
-    #    """
-    #    Obtains averages by fitting to each output time then
-    #    averaging results.
-    #    """
-    #    pdictlist = vp.subset_pdict(self.pdict, self.stime, self.tmave)
-    #    mfitlist = []
-    #    masslist = []
-    #    for pdn in pdictlist:
-    #        if htmax:
-    #            pdn = pdn[pdn["ht"] <= htmax]
-    #        mfitlist.append(par2fit(pdn, nnn))
-    #        masslist.append(pdn["pmass"].sum())
-    #    self.mass2 = masslist
-    #    self.nnn2 = nnn
-    #    self.htmax2 = htmax
-    #    self.mfitlist = mfitlist
-    #    self.m2ra = vp.average_mfitlist(
-    #        mfitlist, masslist, self.dd, self.dh, self.buf, None, None, None
-    #    )
