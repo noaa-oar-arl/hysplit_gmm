@@ -4,7 +4,7 @@ This repository is supplemental material for the publication "The use of Gaussia
 ### Dependencies
 https://github.com/noaa-oar-arl/monetio  
 https://github.com/noaa-oar-arl/monet  
-https://github.com/noaa-oar-arl/utilhysplit  
+https://github.com/noaa-oar-arl/utilhysplit (v0.0) 
 
 - pandas
 - xarray
