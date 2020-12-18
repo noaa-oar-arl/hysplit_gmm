@@ -1,5 +1,9 @@
 # hysplit_gmm
-This repository is supplemental material for the publication "The use of Gaussian Mixture Models with Atmospheric Lagrangian Particle Dispersion models for density estimation and feature identification" by Alice Crawford which has been submitted to Atmosphere. 
+This repository is supplemental material for the publication 
+
+Crawford, A. The Use of Gaussian Mixture Models with Atmospheric Lagrangian Particle Dispersion Models for Density Estimation and Feature Identification. Atmosphere 2020, 11, 1369.
+
+https://www.mdpi.com/2073-4433/11/12/1369
 
 ### Dependencies
 https://github.com/noaa-oar-arl/monetio  
